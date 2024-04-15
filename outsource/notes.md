@@ -20,3 +20,11 @@ The simulation stops when a philosopher dies of starvation.
 >philosopher dont speak with each other.
 >philosopher dont know if another philosopher is about to die.
 >Philosophers should avoid dying!
+
+ARGUMENTS -> 
+nb_philo(int) 
+time_todie(int) 
+time_toeat(int) 
+time_tosleep(int) 
+number_of_times_each_philosopher_must_eat(int)
+
