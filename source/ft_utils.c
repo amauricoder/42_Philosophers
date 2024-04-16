@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/15 14:34:30 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:48:58 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,3 @@ int	ft_atoi(char *char_nbr)
 	return (res);
 }
 
-/**
- * @brief Init struct with initial data
- * @return A struct with data filled.
-*/
-t_data	*init_struct(int argc, char **argv)
-{
-	t_data	*values;
-
-	values = malloc(sizeof(t_data));
-	if (!values)
-		return (NULL);
-	values->argc_qt = argc;
-	values->philoandfork_qt = ft_atoi(argv[1]);
-	values->die_timeto = ft_atoi(argv[2]);
-	values->eat_timeto = ft_atoi(argv[3]);
-	values->sleep_timeto = ft_atoi(argv[4]);
-	if (argc > 5)
-		values->musteat_times = ft_atoi(argv[5]);
-	else
-		values->musteat_times = 0;
-	return (values);
-}
