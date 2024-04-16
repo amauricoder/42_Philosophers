@@ -6,15 +6,15 @@
 #    By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 18:47:33 by aconceic          #+#    #+#              #
-#    Updated: 2024/04/16 13:14:12 by aconceic         ###   ########.fr        #
+#    Updated: 2024/04/16 17:54:10 by aconceic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##############################################
 #                 COMPILATION                #
 ##############################################
-CFLACGS = -Wall -Wextra -Werror
-GCC = cc -g
+CFLACGS = -Wall -Wextra -Werror -g -fsanitize=thread
+GCC = gcc
 CC = cc
 
 ##############################################
@@ -43,10 +43,10 @@ $(OBJ_DIR) :
 	mkdir $@
 
 $(NAME) : $(OBJ)
-	$(GCC) $(CFLACGS) $(OBJ) $(SRC_DIR)main.c -o $(NAME)
+	$(CC) $(CFLACGS) $(OBJ) $(SRC_DIR)main.c -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(GCC) $(CFLACGS) -c $< -o $@
+	$(CC) $(CFLACGS) -c $< -o $@
 
 clean :
 	$(RM) $(OBJ_DIR)
