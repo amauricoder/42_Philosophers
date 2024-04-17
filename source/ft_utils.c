@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/15 15:48:58 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:37:25 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,20 @@ int	ft_atoi(char *char_nbr)
 		res = res * signal;
 	return (res);
 }
+/**
+ * @brief (nbr_of_secs / 60 sec / 60 min / 24 hours / 365 days)
+ * Calculates the total time in milliseconds. current_time.tv_sec 
+ * is the number of seconds since the Unix Epoch, so multiplying 
+ * it by 1000 converts it to milliseconds. current_time.tv_usec is 
+ * the number of microseconds (1/1,000,000 of a second), so dividing by 
+ * 1000 converts it to milliseconds. Finally, both are summed to obtain
+ * the total time in milliseconds.
+ * @return The total time in milliseconds since the Unix Epoch
+*/
+__uint64_t		get_time()
+{
+	struct timeval current_time;
 
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}

@@ -6,14 +6,14 @@
 #    By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 18:47:33 by aconceic          #+#    #+#              #
-#    Updated: 2024/04/16 17:54:10 by aconceic         ###   ########.fr        #
+#    Updated: 2024/04/17 13:27:16 by aconceic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##############################################
 #                 COMPILATION                #
 ##############################################
-CFLACGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLACGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
 GCC = gcc
 CC = cc
 
@@ -31,6 +31,7 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 SRC_DIR = ./source/
 SRC = ft_utils.c input_valid.c error.c frees.c \
 		debugging_sessions.c init_value.c dinner_table.c \
+		threads.c \
 
 ##############################################
 #                    RULES                   #
