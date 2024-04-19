@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/19 14:29:59 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:25:37 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 */
 void	init_data(int argc, char **argv, t_data *data)
 {
+	data->ph = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	if (!data->ph)
+		return ;
+	data->ph->left_fork = NULL;
+	data->ph->right_fork = NULL;
+	data->ph->id = 0;
 	data->argc_qt = argc;
 	data->philoandfork_qt = ft_atoi(argv[1]);
 	data->die_timeto = ft_atoi(argv[2]);
@@ -29,11 +35,6 @@ void	init_data(int argc, char **argv, t_data *data)
 		data->musteat_times = 0;
 	data->thr_arr = alloc_thread(data->philoandfork_qt);
 	data->mtx_arr = alloc_mutex(data->philoandfork_qt);
-	data->ph = malloc(sizeof(t_philo) * data->philoandfork_qt);
-	if (!data->ph)
-		return ;
-	data->ph->id = 0;
-	
 }
 pthread_t	*alloc_thread(int qt)
 {
@@ -53,9 +54,16 @@ void    init_threads(t_data *data)
 	while (i < data->philoandfork_qt)
 	{
 		data->ph[i].id = i;
+		data->ph[i].main = data;
+		data->ph[i].left_fork = malloc(sizeof(pthread_mutex_t));
+		data->ph[i].right_fork = malloc(sizeof(pthread_mutex_t));
+		if (!data->ph[i].left_fork || !data->ph[i].right_fork)
+			return ;
 		if (pthread_create(&data->thr_arr[i], NULL,
 			&start_routine, &data->ph[i]) != 0)
 			errormsg_and_exit("Error\nError creating threads", EXIT_FAILURE);
+		free(data->ph[i].right_fork);
+		free(data->ph[i].left_fork);
 		i ++;
 	}
 	i = 0;
@@ -63,6 +71,7 @@ void    init_threads(t_data *data)
 		if (pthread_join(data->thr_arr[i ++], NULL) != 0)
 			errormsg_and_exit("Error\nError thread join", EXIT_FAILURE);
 }
+
 /**
  * @brief Alloc space for mutexes
  * @param qt 

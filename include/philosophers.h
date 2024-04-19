@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/19 14:00:24 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:42:48 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@
 typedef	struct s_philo
 {
 	int	id;
-	struct s_data *main;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
+	struct s_data	*main;
 }	t_philo;
 
 //main struct
@@ -107,7 +109,7 @@ void				init_mutex(t_data *data);
 /**************************************/
 //
 void				*start_routine(void *arg);
-
+void				atribute_fork(t_philo *philo);
 /**************************************/
 /*                DEBUG               */
 /**************************************/
