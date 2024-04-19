@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/17 13:26:07 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:29:59 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,53 +27,62 @@ void	init_data(int argc, char **argv, t_data *data)
 		data->musteat_times = ft_atoi(argv[5]);
 	else
 		data->musteat_times = 0;
-	data->threads_arr = alloc_thread(data->philoandfork_qt);
-	//data->mtx_arr = alloc_mutex(data->philoandfork_qt);
+	data->thr_arr = alloc_thread(data->philoandfork_qt);
+	data->mtx_arr = alloc_mutex(data->philoandfork_qt);
+	data->ph = malloc(sizeof(t_philo) * data->philoandfork_qt);
+	if (!data->ph)
+		return ;
+	data->ph->id = 0;
+	
 }
-pthread_t	**alloc_thread(int qt)
+pthread_t	*alloc_thread(int qt)
 {
-	int	i;
-	pthread_t **threads_arr;
 	pthread_t *thread;
 
-	threads_arr = malloc(sizeof(pthread_t) * qt);
-	i = 0;
-	while (i < qt)
-	{
-		thread = malloc(sizeof(thread));
-		if (!thread)
-			return (NULL);
-		threads_arr[i] = thread;
-		i ++;
-	}
-	return (threads_arr);
+	thread = malloc(sizeof(pthread_t) * qt);
+	if (!thread)
+		return (NULL);
+	return (thread);
 }
 
-void    init_threads(t_data data)
+void    init_threads(t_data *data)
 {
     int i;
 
 	i = 0;
-	while (i < data.philoandfork_qt)
+	while (i < data->philoandfork_qt)
 	{
-		if (pthread_create(data.threads_arr[i], NULL,
-			&start_routine, &data) != 0)
+		data->ph[i].id = i;
+		if (pthread_create(&data->thr_arr[i], NULL,
+			&start_routine, &data->ph[i]) != 0)
 			errormsg_and_exit("Error\nError creating threads", EXIT_FAILURE);
 		i ++;
 	}
 	i = 0;
-	while (i < data.philoandfork_qt)
-		if (pthread_join(*(data.threads_arr[i ++]), NULL) != 0)
+	while (i < data->philoandfork_qt)
+		if (pthread_join(data->thr_arr[i ++], NULL) != 0)
 			errormsg_and_exit("Error\nError thread join", EXIT_FAILURE);
 }
-
-/* pthread_mutex_t	**alloc_mutex(int qt)
+/**
+ * @brief Alloc space for mutexes
+ * @param qt 
+ * @return 
+*/
+pthread_mutex_t	*alloc_mutex(int qt)
 {
-	int i;
+	pthread_mutex_t *mutex;
+
+	mutex = malloc(sizeof(pthread_mutex_t) * qt);
+	if (!mutex)
+		return (NULL);
+	return (mutex);
+}
+
+void	init_mutex(t_data *data)
+{
+	int	i;
 
 	i = 0;
-	while (i < qt)
-	{
-		
-	}
-} */
+	while (i < data->philoandfork_qt)
+		pthread_mutex_init(&data->mtx_arr[i ++], NULL);
+}

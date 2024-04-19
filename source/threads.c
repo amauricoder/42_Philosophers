@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/17 13:25:55 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:20:57 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void    *start_routine(void *arg)
 {
-    t_data *data;
-    data = (t_data *)arg;
-
-    printf("test -> %i\n", data->musteat_times);
-    return (NULL);
+	t_philo *philo;
+	philo = (t_philo *)arg;
+	
+	printf("Philosopher ID-> %i\n", philo->id);
+	return (NULL);
 }

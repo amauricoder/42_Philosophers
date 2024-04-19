@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:04:08 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/17 16:30:49 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:56:08 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void *printf_runningthr(void *arg)
 	while (i < philo->philoandfork_qt)
 	{
 		//printf("i from main => %i\n", i);
-		if (pthread_create(philo->threads_arr[i], NULL, &printf_runningthr, NULL) != 0)
+		if (pthread_create(philo->thr_arr[i], NULL, &printf_runningthr, NULL) != 0)
 			return (1);
 		i ++;
 	}
 	i = 0;
 	while (i < philo->philoandfork_qt)
-		if (pthread_join(*(philo->threads_arr[i ++]), NULL) != 0)
+		if (pthread_join(*(philo->thr_arr[i ++]), NULL) != 0)
 			return (1);
 	 */
 //-------------------------------------------------------------------

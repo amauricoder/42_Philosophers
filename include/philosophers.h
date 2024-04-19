@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/17 16:31:06 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:00:24 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@
 /**************************************/
 /*             Structs                */
 /**************************************/
+typedef	struct s_philo
+{
+	int	id;
+	struct s_data *main;
+}	t_philo;
 
 //main struct
 typedef struct s_data
@@ -42,8 +47,9 @@ typedef struct s_data
 	int				eat_timeto;
 	int				sleep_timeto;
 	int				musteat_times;
-	pthread_t		**threads_arr;
-	pthread_mutex_t	**mtx_arr;
+	pthread_t		*thr_arr;
+	pthread_mutex_t	*mtx_arr;
+	t_philo			*ph;
 }	t_data;
 
 /**************************************/
@@ -86,9 +92,10 @@ void				free_struct(t_data *data);
 /**************************************/
 //
 void				init_data(int argc, char **argv, t_data *values);
-void    			init_threads(t_data data);
-pthread_t			**alloc_thread(int qt);
-//pthread_mutex_t	**alloc_mutex(t_data data);
+void    			init_threads(t_data *data);
+pthread_t			*alloc_thread(int qt);
+pthread_mutex_t		*alloc_mutex(int qt);
+void				init_mutex(t_data *data);
 
 /**************************************/
 /*   diner -> source/dinner_table.c   */
