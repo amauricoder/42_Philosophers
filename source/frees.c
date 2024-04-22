@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:27:27 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/19 16:18:23 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:51:03 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	free_struct(t_data *data)
 {
-	/* int i = 0;
+	int i;
+
+	i = 0;
 	while (i < data->philoandfork_qt)
 	{
-		free(data->ph[i].left_fork);
-		free(data->ph[i].right_fork);
+		if (pthread_join(*(data)->ph[i].thread, NULL) != 0)
+			errormsg_and_exit("Error\nError thread join", EXIT_FAILURE);
+		free(data->ph[i].thread);
 		i ++;
-	} */
-	free(data->thr_arr);
-	free(data->mtx_arr);
+	}
+	free(data->all_forks);
 	free(data->ph);
 }

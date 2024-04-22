@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:47 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/19 15:35:57 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:35:18 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ int	main(int argc, char **argv)
 	if (!argument_isvalid(argc, argv))
 		errormsg_and_exit("Error\nInvalid Arguments", EXIT_FAILURE);
 	init_data(argc, argv, &d);
-	init_mutex(&d);
-	init_threads(&d);
-	
-	//printf("main() data->number value %i\n", d.number);
-	//-----------------------------------------------
-
-	//-----------------------------------------------
+	attribute_forks(&d);
+	start_threads(&d);
+	//-----------------------------------------------//
+	//-----------------------------------------------//
 	free_struct(&d);
 }
 

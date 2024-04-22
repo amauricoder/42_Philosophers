@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/19 15:42:48 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:46:05 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 typedef	struct s_philo
 {
 	int	id;
+	pthread_t		*thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	struct s_data	*main;
@@ -49,8 +50,8 @@ typedef struct s_data
 	int				eat_timeto;
 	int				sleep_timeto;
 	int				musteat_times;
-	pthread_t		*thr_arr;
-	pthread_mutex_t	*mtx_arr;
+	size_t			start_time;
+	pthread_mutex_t *all_forks;
 	t_philo			*ph;
 }	t_data;
 
@@ -67,7 +68,7 @@ int					main(int argc, char **argv);
 int					ft_strlen(char *str);
 int					ft_strcmp(char *str1, char *str2);
 int					ft_atoi(char *number);
-__uint64_t					get_time();
+size_t					get_time();
 
 /**************************************/
 /* INPUT_VALID -> source/input_valid.c */
@@ -94,10 +95,10 @@ void				free_struct(t_data *data);
 /**************************************/
 //
 void				init_data(int argc, char **argv, t_data *values);
-void    			init_threads(t_data *data);
 pthread_t			*alloc_thread(int qt);
-pthread_mutex_t		*alloc_mutex(int qt);
-void				init_mutex(t_data *data);
+void				alloc_and_init_mutex(int qt, t_data *data);
+void				attribute_forks(t_data *data);
+void				init_philo(t_data *data);
 
 /**************************************/
 /*   diner -> source/dinner_table.c   */
@@ -108,8 +109,9 @@ void				init_mutex(t_data *data);
 /*   threads -> source/threads.c      */
 /**************************************/
 //
+void    			start_threads(t_data *data);
 void				*start_routine(void *arg);
-void				atribute_fork(t_philo *philo);
+
 /**************************************/
 /*                DEBUG               */
 /**************************************/

@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/17 15:37:25 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:45:49 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_atoi(char *char_nbr)
  * the total time in milliseconds.
  * @return The total time in milliseconds since the Unix Epoch
 */
-__uint64_t		get_time()
+size_t		get_time()
 {
 	struct timeval current_time;
 
