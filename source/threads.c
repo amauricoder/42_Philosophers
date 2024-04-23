@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 12:15:32 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:38:04 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,45 @@ void    *start_routine(void *arg)
 	size_t current_time;
 
 	philo = (t_philo *)arg;
-	printf("Philosopher %i\n", philo->id);
-	while (1)
+	int i = 0;
+
+	while (i < 3)
 	{
-		current_time = get_time() - philo->main->start_time;
-		//solve deadlock issue here
-		//use the if (odd) first_left
 		if (philo->id % 2 == 0)
 		{
-			printf("Philo par\n");
-			pthread_mutex_lock(philo->left_fork);
-			printf("%zu %i Has taken a fork\n", current_time, philo->id);
-			pthread_mutex_lock(philo->right_fork);
-			printf("%zu %i Has taken a fork\n", current_time, philo->id);
+			pthread_mutex_lock(philo->left_fork->fork);
+			current_time = get_time() - philo->main->start_time;
+			printf("%zu %i Has taken the fork %i\n", current_time, 
+				philo->id, philo->left_fork->fork_id);
+			pthread_mutex_lock(philo->right_fork->fork);
+			current_time = get_time() - philo->main->start_time;
+			printf("%zu %i Has taken a fork %i\n", current_time, 
+				philo->id, philo->right_fork->fork_id);
 		}
-		//else (even) first_right
-		else if (philo->id % 3 == 0)
+		else
 		{
-			printf("Philo Impar\n");
-			pthread_mutex_lock(philo->right_fork);
-			printf("%zu %i Has taken a fork\n", current_time, philo->id);
-			pthread_mutex_lock(philo->left_fork);
-			printf("%zu %i Has taken a fork\n", current_time, philo->id);
+			pthread_mutex_lock(philo->right_fork->fork);
+			current_time = get_time() - philo->main->start_time;
+			printf("%zu %i Has taken a fork %i\n", current_time, 
+				philo->id, philo->right_fork->fork_id);
+			pthread_mutex_lock(philo->left_fork->fork);
+			current_time = get_time() - philo->main->start_time;
+			printf("%zu %i Has taken the fork %i\n", current_time, philo->id, 
+				philo->left_fork->fork_id);
 		}
-		//mutex
+		current_time = get_time() - philo->main->start_time;
 		printf("%zu %i Is eating\n", current_time, philo->id);
-		usleep(5000);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-		//mutex unlock
-		//mutex unlock
-		//printf("Is sleeping\n");
-		//printf("Is thinking\n");
-		//printf("died\n");
+		usleep(philo->main->eat_timeto);
+
+		pthread_mutex_unlock(philo->left_fork->fork);
+		pthread_mutex_unlock(philo->right_fork->fork);
+
+		current_time = get_time() - philo->main->start_time;
+		printf("%zu %i Is sleeping\n", current_time, philo->id);
+		usleep(philo->main->sleep_timeto);
+		
+
+		i ++;
 	}
 	return (NULL);
 }

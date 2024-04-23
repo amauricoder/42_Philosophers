@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 11:38:03 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:38:15 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 /**************************************/
 /*             Structs                */
 /**************************************/
+typedef	struct s_forks
+{
+	int	fork_id;
+	pthread_mutex_t *fork;
+}	t_fork;
+
 typedef	struct s_philo
 {
 	int				id;
@@ -40,8 +46,8 @@ typedef	struct s_philo
 	int				is_dead;
 	size_t			last_meal_time;
 	pthread_t		*thread;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 	struct s_data	*main;
 }	t_philo;
 
@@ -55,7 +61,7 @@ typedef struct s_data
 	int				sleep_timeto;
 	int				musteat_times;
 	size_t			start_time;
-	pthread_mutex_t *all_forks;
+	t_fork			*all_forks;
 	t_philo			*ph;
 }	t_data;
 

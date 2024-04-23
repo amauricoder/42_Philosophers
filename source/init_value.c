@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 11:43:31 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:39:47 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,19 @@ void	alloc_and_init_mutex(int qt, t_data *data)
 {
 	int i;
 
-	data->all_forks = malloc(sizeof(pthread_mutex_t) * qt);
+	data->all_forks = malloc(sizeof(t_fork) * qt);
 	if (!data->all_forks)
 		return ;	
 	i = 0;
 	while (i < qt)
-		pthread_mutex_init(&data->all_forks[i ++], NULL);
+	{
+		data->all_forks[i].fork_id = i + 1;
+		data->all_forks[i].fork = malloc(sizeof(pthread_mutex_t));
+		if (!data->all_forks[i].fork)
+			return ;
+		pthread_mutex_init(data->all_forks[i].fork, NULL);
+		i ++;
+	}
 }
 /**
  * @brief Gives the pointers of the left and right fork of the philo struct
