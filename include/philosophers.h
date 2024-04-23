@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/20 17:46:05 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:38:03 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@
 /**************************************/
 typedef	struct s_philo
 {
-	int	id;
+	int				id;
+	int				eat_times;
+	int				is_full;
+	int				is_dead;
+	size_t			last_meal_time;
 	pthread_t		*thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
@@ -97,7 +101,7 @@ void				free_struct(t_data *data);
 void				init_data(int argc, char **argv, t_data *values);
 pthread_t			*alloc_thread(int qt);
 void				alloc_and_init_mutex(int qt, t_data *data);
-void				attribute_forks(t_data *data);
+int					attribute_forks(t_data *data);
 void				init_philo(t_data *data);
 
 /**************************************/
@@ -109,7 +113,7 @@ void				init_philo(t_data *data);
 /*   threads -> source/threads.c      */
 /**************************************/
 //
-void    			start_threads(t_data *data);
+int    				start_threads(t_data *data);
 void				*start_routine(void *arg);
 
 /**************************************/

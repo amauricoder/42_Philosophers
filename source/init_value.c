@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/20 17:36:50 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:43:31 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void	init_data(int argc, char **argv, t_data *data)
 {
 	data->argc_qt = argc;
 	data->philoandfork_qt = ft_atoi(argv[1]);
-	data->die_timeto = ft_atoi(argv[2]);
-	data->eat_timeto = ft_atoi(argv[3]);
-	data->sleep_timeto = ft_atoi(argv[4]);
-	data->musteat_times = 0;
+	data->die_timeto = ft_atoi(argv[2]) * 1000;
+	data->eat_timeto = ft_atoi(argv[3]) * 1000;
+	data->sleep_timeto = ft_atoi(argv[4])* 1000;
 	if (argc > 5)
 		data->musteat_times = ft_atoi(argv[5]);
 	data->start_time = get_time();
@@ -34,6 +33,28 @@ void	init_data(int argc, char **argv, t_data *data)
 		return ;
 	init_philo(data);
 }
+
+void	init_philo(t_data *data)
+{
+	int i;
+
+	i = -1;
+	while (++ i < data->philoandfork_qt)
+	{
+		data->ph[i].main = data;
+		data->ph[i].left_fork = NULL;
+		data->ph[i].right_fork = NULL;
+		data->ph[i].id = 0;
+		data->ph[i].eat_times = 0;
+		data->ph[i].is_full = 0;
+		data->ph[i].is_dead = 0;
+		data->ph[i].last_meal_time = 0;
+		data->ph[i].thread = malloc(sizeof(pthread_t));
+		if (!data->ph[i].thread)
+			return ;		
+	}
+}
+
 /**
 * @brief Allocate memory for the treaton the main struct.
 * @param qt Quantity of space necessary to alloc.
@@ -68,7 +89,7 @@ void	alloc_and_init_mutex(int qt, t_data *data)
  * to the corresponding mutex
  * @param data Main struct.
 */
-void	attribute_forks(t_data *data)
+int	attribute_forks(t_data *data)
 {
 	int	i;
 
@@ -76,29 +97,13 @@ void	attribute_forks(t_data *data)
 	while (i < data->philoandfork_qt)
 	{
 		data->ph[i].left_fork = &data->all_forks[i];
+		data->ph[i].right_fork = &data->all_forks[i - 1];
 		if (i == 0)
 			data->ph[i].right_fork = &data->all_forks[data->philoandfork_qt - 1];			
-		else
-			data->ph[i].right_fork = &data->all_forks[i - 1];
 		if (!data->ph[i].right_fork || !data->ph[i].left_fork)
-				errormsg_and_exit("Error\nAtr Forks!", 1);
+				return (errormsg_and_exit("Error\nAtr Forks!", EXIT_FAILURE));
 		i ++;
 	}
+	return (EXIT_SUCCESS);
 }
 
-void	init_philo(t_data *data)
-{
-	int i;
-
-	i = -1;
-	while (++ i < data->philoandfork_qt)
-	{
-		data->ph[i].main = data;
-		data->ph[i].left_fork = NULL;
-		data->ph[i].right_fork = NULL;
-		data->ph[i].id = 0;
-		data->ph[i].thread = malloc(sizeof(pthread_t));
-		if (!data->ph[i].thread)
-			return ;		
-	}
-}

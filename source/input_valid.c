@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:57:13 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/15 14:36:19 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:12:37 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
  * @param argv
  * @return Boolean. 1 for yes, 0 for no.
 */
-int	argument_isvalid(int argc, char **argv)
+int	 argument_isvalid(int argc, char **argv)
 {
-	if (!is_digit(argv) || !is_null(argv) || argc < 5 || argc >= 7)
-		return (0);
+	//here I need to check for int max too.
+	//timestamp needs to be bigger than 60ms
+	if (!is_digit(argv) || !is_null(argv) || argc < 5 || argc > 6)
+		return (EXIT_FAILURE);
 	else
-		return (1);
+		return (EXIT_SUCCESS);
 }
 
 /**
