@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 15:39:47 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:53:39 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->philoandfork_qt = ft_atoi(argv[1]);
 	data->die_timeto = ft_atoi(argv[2]) * 1000;
 	data->eat_timeto = ft_atoi(argv[3]) * 1000;
-	data->sleep_timeto = ft_atoi(argv[4])* 1000;
+	data->sleep_timeto = ft_atoi(argv[4]) * 1000;
 	if (argc > 5)
 		data->musteat_times = ft_atoi(argv[5]);
 	data->start_time = get_time();
@@ -36,7 +36,7 @@ void	init_data(int argc, char **argv, t_data *data)
 
 void	init_philo(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++ i < data->philoandfork_qt)
@@ -45,13 +45,13 @@ void	init_philo(t_data *data)
 		data->ph[i].left_fork = NULL;
 		data->ph[i].right_fork = NULL;
 		data->ph[i].id = 0;
-		data->ph[i].eat_times = 0;
+		data->ph[i].meals_qt = 0;
 		data->ph[i].is_full = 0;
 		data->ph[i].is_dead = 0;
 		data->ph[i].last_meal_time = 0;
 		data->ph[i].thread = malloc(sizeof(pthread_t));
 		if (!data->ph[i].thread)
-			return ;		
+			return ;
 	}
 }
 
@@ -61,7 +61,7 @@ void	init_philo(t_data *data)
 */
 pthread_t	*alloc_thread(int qt)
 {
-	pthread_t *thread;
+	pthread_t	*thread;
 
 	thread = malloc(sizeof(pthread_t) * qt);
 	if (!thread)
@@ -75,11 +75,11 @@ pthread_t	*alloc_thread(int qt)
 */
 void	alloc_and_init_mutex(int qt, t_data *data)
 {
-	int i;
+	int	i;
 
 	data->all_forks = malloc(sizeof(t_fork) * qt);
 	if (!data->all_forks)
-		return ;	
+		return ;
 	i = 0;
 	while (i < qt)
 	{
@@ -91,6 +91,7 @@ void	alloc_and_init_mutex(int qt, t_data *data)
 		i ++;
 	}
 }
+
 /**
  * @brief Gives the pointers of the left and right fork of the philo struct
  * to the corresponding mutex
@@ -106,11 +107,12 @@ int	attribute_forks(t_data *data)
 		data->ph[i].left_fork = &data->all_forks[i];
 		data->ph[i].right_fork = &data->all_forks[i - 1];
 		if (i == 0)
-			data->ph[i].right_fork = &data->all_forks[data->philoandfork_qt - 1];			
+			data->ph[i].right_fork
+				= &data->all_forks[data->philoandfork_qt - 1];
 		if (!data->ph[i].right_fork || !data->ph[i].left_fork)
-				return (errormsg_and_exit("Error\nAtr Forks!", EXIT_FAILURE));
+			return (errormsg_and_exit("Error\nAtr Forks!",
+					EXIT_FAILURE));
 		i ++;
 	}
 	return (EXIT_SUCCESS);
 }
-

@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:47 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 11:10:26 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:33:00 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,9 @@ int	main(int argc, char **argv)
 }
 
 //int gettimeofday ( struct timeval *tp ,  struct timezone *tz );
+
+//timestamp_in_ms X has taken a fork
+//timestamp_in_ms X is eating
+//timestamp_in_ms X is sleeping
+//timestamp_in_ms X is thinking
+//timestamp_in_ms X died

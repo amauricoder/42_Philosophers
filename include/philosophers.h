@@ -6,12 +6,25 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 15:38:15 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:35:27 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
+
+/******************************/
+/*    COLORS ANSI ESCAPE      */
+/******************************/
+# define RESET   "\033[0m"
+# define RED     "\033[1;31m"
+# define GREEN   "\033[1;32m"
+# define YELLOW  "\033[33m"
+# define ORANGE "\033[1;33m"
+# define BLUE    "\033[1;34m"
+# define MGT "\033[35m"
+# define CYAN    "\033[36m"
+# define WHITE   "\033[37m"
 
 /**************************************/
 /*             External Libs          */
@@ -41,7 +54,7 @@ typedef	struct s_forks
 typedef	struct s_philo
 {
 	int				id;
-	int				eat_times;
+	int				meals_qt;
 	int				is_full;
 	int				is_dead;
 	size_t			last_meal_time;
@@ -120,7 +133,7 @@ void				init_philo(t_data *data);
 /**************************************/
 //
 int    				start_threads(t_data *data);
-void				*start_routine(void *arg);
+void				*dinner_routine(void *arg);
 
 /**************************************/
 /*                DEBUG               */
