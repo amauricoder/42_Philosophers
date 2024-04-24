@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:57:13 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 11:12:37 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:25:20 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	 argument_isvalid(int argc, char **argv)
 {
 	//here I need to check for int max too.
 	//timestamp needs to be bigger than 60ms
-	if (!is_digit(argv) || !is_null(argv) || argc < 5 || argc > 6)
-		return (EXIT_FAILURE);
+	if (!is_digit(argv) || !is_null(argv) || argc < 5 || argc > 6
+	|| ft_atoi(argv[5]) == 0)
+		return (EXIT_FAILURE);	
 	else
 		return (EXIT_SUCCESS);
 }

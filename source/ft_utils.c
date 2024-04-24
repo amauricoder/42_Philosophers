@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/20 17:45:49 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:27:09 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_atoi(char *char_nbr)
 	signal = 0;
 	res = 0;
 	i = 0;
+	if (!char_nbr)
+		return (EXIT_FAILURE);
 	while (char_nbr[i] == 32 || (char_nbr[i] >= 9 && char_nbr[i] <= 13))
 		i ++;
 	if (char_nbr[i] == '+' || char_nbr[i] == '-')
@@ -69,8 +71,7 @@ int	ft_atoi(char *char_nbr)
 	while (char_nbr[i] >= '0' && char_nbr[i] <= '9')
 	{
 		res = res * 10;
-		res = res + char_nbr[i] - 48;
-		i ++;
+		res = res + char_nbr[i ++] - 48;
 	}
 	if (signal == -1)
 		res = res * signal;

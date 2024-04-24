@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/24 12:35:27 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:23:10 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 /**************************************/
 typedef	struct s_forks
 {
-	int	fork_id;
+	int				fork_id;
 	pthread_mutex_t *fork;
 }	t_fork;
 
@@ -73,6 +73,9 @@ typedef struct s_data
 	int				eat_timeto;
 	int				sleep_timeto;
 	int				musteat_times;
+	int				is_someone_dead;
+	int				table_is_ready;
+	pthread_mutex_t	*table_mutex;
 	size_t			start_time;
 	t_fork			*all_forks;
 	t_philo			*ph;
@@ -91,7 +94,7 @@ int					main(int argc, char **argv);
 int					ft_strlen(char *str);
 int					ft_strcmp(char *str1, char *str2);
 int					ft_atoi(char *number);
-size_t					get_time();
+size_t				get_time();
 
 /**************************************/
 /* INPUT_VALID -> source/input_valid.c */
@@ -127,14 +130,14 @@ void				init_philo(t_data *data);
 /*   diner -> source/dinner_table.c   */
 /**************************************/
 //
-//void    			*eating_philosophers();
+void				*dinner_routine(void *arg);
+
 /**************************************/
 /*   threads -> source/threads.c      */
 /**************************************/
 //
 int    				start_threads(t_data *data);
-void				*dinner_routine(void *arg);
-
+void				preparing_table(t_philo *philo);
 /**************************************/
 /*                DEBUG               */
 /**************************************/

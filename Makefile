@@ -6,14 +6,14 @@
 #    By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 18:47:33 by aconceic          #+#    #+#              #
-#    Updated: 2024/04/24 13:00:45 by aconceic         ###   ########.fr        #
+#    Updated: 2024/04/24 17:19:19 by aconceic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##############################################
 #                 COMPILATION                #
 ##############################################
-CFLACGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread
+CFLACGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
 GCC = gcc
 CC = cc
 

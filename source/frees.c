@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:27:27 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 16:55:55 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:26:33 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	free_struct(t_data *data)
 		free(data->all_forks[i].fork);
 		i ++;
 	}
+	free(data->table_mutex);
 	free(data->all_forks);
 	free(data->ph);
 }

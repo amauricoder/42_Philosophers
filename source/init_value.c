@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/24 12:53:39 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:47:46 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->die_timeto = ft_atoi(argv[2]) * 1000;
 	data->eat_timeto = ft_atoi(argv[3]) * 1000;
 	data->sleep_timeto = ft_atoi(argv[4]) * 1000;
+	data->is_someone_dead = 0;
+	data->table_is_ready = 0;
 	if (argc > 5)
 		data->musteat_times = ft_atoi(argv[5]);
 	data->start_time = get_time();
@@ -90,6 +92,8 @@ void	alloc_and_init_mutex(int qt, t_data *data)
 		pthread_mutex_init(data->all_forks[i].fork, NULL);
 		i ++;
 	}
+	data->table_mutex = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(data->table_mutex, NULL);
 }
 
 /**
