@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/24 17:23:10 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:34:09 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef	struct s_philo
 	int				id;
 	int				meals_qt;
 	int				is_full;
-	int				is_dead;
 	size_t			last_meal_time;
 	pthread_t		*thread;
 	t_fork			*left_fork;
@@ -74,8 +73,10 @@ typedef struct s_data
 	int				sleep_timeto;
 	int				musteat_times;
 	int				is_someone_dead;
+	int				qt_philo_full;
 	int				table_is_ready;
 	pthread_mutex_t	*table_mutex;
+	pthread_mutex_t *full_mutex;
 	size_t			start_time;
 	t_fork			*all_forks;
 	t_philo			*ph;

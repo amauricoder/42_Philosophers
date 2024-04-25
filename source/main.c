@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:47 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/24 15:30:29 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:22:23 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,14 @@ int	main(int argc, char **argv)
 //timestamp_in_ms X is sleeping
 //timestamp_in_ms X is thinking
 //timestamp_in_ms X died
+
+
+//NEXT STEPS
+//Get the right timestamp by improving the usleep.
+
+//even
+//time_to_die = time_to_eat + time_to_sleep + 10
+
+//odd
+//time_to_die = time_to_eat * 2 + time_to_sleep + 10
+

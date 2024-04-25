@@ -58,3 +58,5 @@ pthread_mutex_destroy(&mutex);
 ## SOURCES
 
 https://medium.com/@jalal92/the-dining-philosophers-7157cc05315
+
+https://nafuka11.github.io/philosophers-visualizer/

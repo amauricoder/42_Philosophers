@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/24 17:47:46 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:34:54 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->eat_timeto = ft_atoi(argv[3]) * 1000;
 	data->sleep_timeto = ft_atoi(argv[4]) * 1000;
 	data->is_someone_dead = 0;
+	data->qt_philo_full = 0;
 	data->table_is_ready = 0;
 	if (argc > 5)
 		data->musteat_times = ft_atoi(argv[5]);
@@ -49,7 +50,6 @@ void	init_philo(t_data *data)
 		data->ph[i].id = 0;
 		data->ph[i].meals_qt = 0;
 		data->ph[i].is_full = 0;
-		data->ph[i].is_dead = 0;
 		data->ph[i].last_meal_time = 0;
 		data->ph[i].thread = malloc(sizeof(pthread_t));
 		if (!data->ph[i].thread)
@@ -93,7 +93,9 @@ void	alloc_and_init_mutex(int qt, t_data *data)
 		i ++;
 	}
 	data->table_mutex = malloc(sizeof(pthread_mutex_t));
+	data->full_mutex = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(data->table_mutex, NULL);
+	pthread_mutex_init(data->full_mutex, NULL);
 }
 
 /**
