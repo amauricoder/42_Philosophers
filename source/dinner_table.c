@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 17:46:19 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:26:06 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	is_eating(t_philo *philo, size_t current_time)
 	philo->last_meal_time = current_time;
 	printf("%zu %i is eating\n", current_time, philo->id);
 	philo->meals_qt ++;
-	usleep(philo->main->eat_timeto);
+	ft_usleep(philo->main->eat_timeto);
 	pthread_mutex_lock(philo->main->full_mutex);
 	if (philo->meals_qt == philo->main->musteat_times)
 	{
@@ -91,7 +91,7 @@ static void	is_sleeping(t_philo *philo, size_t current_time)
 {
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is sleeping\n", current_time, philo->id);
-	usleep(philo->main->sleep_timeto);
+	ft_usleep(philo->main->sleep_timeto);
 }
 
 static void	is_thinking(t_philo *philo, size_t current_time)

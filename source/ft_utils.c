@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 13:02:14 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:44:43 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,22 @@ size_t		get_time()
 
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}
+
+/**
+ * @brief Suspends the execution of the calling thread for (time) milliseconds.
+ * receives microseconds and converts to milliseconds(time / 1000).
+ * @param time Time in milliseconds to sleep.
+*/
+int	ft_usleep(size_t time)
+{
+	size_t start;
+
+	start = get_time();
+	time = time / 1000;
+	while((get_time() - start) < time)
+		usleep(100);
+	return (0);
 }
 
 
