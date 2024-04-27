@@ -6,13 +6,14 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 16:58:31 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:39:57 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
 static void	*check_health(void *arg);
+static size_t convert_sizet(int number);
 
 int	start_threads(t_data *data)
 {
@@ -61,18 +62,57 @@ void				preparing_table(t_philo *philo)
 static void	*check_health(void *arg)
 {
 	t_data *data;
+	int		i;
 
 	data = (t_data *)arg;
+	i = 0;
 	while (1)
 	{
+		if (i == data->philoandfork_qt)
+			i = 0;
 		pthread_mutex_lock(data->full_mutex);
+		if (data->qt_philo_full == data->philoandfork_qt)
+		{
+			pthread_mutex_unlock(data->full_mutex);
+			break;
+		}
+		if (get_time() - data->start_time - data->ph[i].last_meal_time > 
+			(convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
+		{
+			printf(RED"%zu PHILO %i MORREU \n"RESET, get_time() - data->start_time, data->ph[i].id);
+			pthread_mutex_unlock(data->full_mutex);
+			break;
+		}
+		pthread_mutex_unlock(data->full_mutex);
+		i ++;
+	} 
+ 	return (NULL);
+}
+
+static size_t convert_sizet(int number)
+{
+	size_t converted;
+
+	converted = number;
+	return (converted);
+}
+
+
+/* if (get_time() - philo->main->start_time - philo->last_meal_time > 
+		(convert_sizet(philo->main->die_timeto) / 1000))
+	{
+		printf("convert size_t %zu\n", convert_sizet(philo->main->die_timeto) / 1000);
+		printf("get_time() - philo->last_meal_time %zu\n", get_time() - philo->last_meal_time);
+		printf("Dead\n");
+	} */
+
+
+
+		/* pthread_mutex_lock(data->full_mutex);
 		if (data->qt_philo_full == data->philoandfork_qt)
 		{
 			printf(ORANGE"EVERYBODY IS FULL\n"RESET);
 			pthread_mutex_unlock(data->full_mutex);
 			break;
 		}
-		pthread_mutex_unlock(data->full_mutex);
-	} 
- 	return (NULL);
-}
+		pthread_mutex_unlock(data->full_mutex); */

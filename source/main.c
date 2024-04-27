@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:47 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/26 19:43:47 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:15:45 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	main(int argc, char **argv)
 		return (errormsg_and_exit("Error\nInvalid Mutex", EXIT_FAILURE));
 	if (start_threads(&d) != 0)
 		return (errormsg_and_exit("Error\nInvalid Thread", EXIT_FAILURE));
-	//-----------------------------------------------//
-	
-	//-----------------------------------------------//
 	free_struct(&d);
 }
 
@@ -44,8 +41,6 @@ int	main(int argc, char **argv)
 //timestamp_in_ms X is thinking
 //timestamp_in_ms X died
 
-//receives miliseconds
-//converts to microseconds
 
 //NEXT STEPS
 //Get the right timestamp by improving the usleep.

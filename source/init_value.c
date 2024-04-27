@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/26 19:43:04 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:34:54 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /**
  * @brief Init struct  and philo struct with initial data,
  * init mutexes and atributes the left/right fork ptr to the equivalent mutex.
- * argv * 1000 to convert to microseconds
  * @return A struct with data filled.
 */
 void	init_data(int argc, char **argv, t_data *data)
