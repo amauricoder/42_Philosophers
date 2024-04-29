@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/27 18:39:57 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:03:52 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ static void	*check_health(void *arg)
 			pthread_mutex_unlock(data->full_mutex);
 			break;
 		}
-		if (get_time() - data->start_time - data->ph[i].last_meal_time > 
+		if ((get_time() - data->start_time) - data->ph[i].last_meal_time > 
 			(convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
 		{
-			printf(RED"%zu PHILO %i MORREU \n"RESET, get_time() - data->start_time, data->ph[i].id);
+			printf(RED"%zu %i died \n"RESET, get_time() - data->start_time, data->ph[i].id);
 			pthread_mutex_unlock(data->full_mutex);
 			break;
 		}
@@ -98,21 +98,25 @@ static size_t convert_sizet(int number)
 }
 
 
-/* if (get_time() - philo->main->start_time - philo->last_meal_time > 
+/* 
+if (get_time() - philo->main->start_time - philo->last_meal_time > 
 		(convert_sizet(philo->main->die_timeto) / 1000))
 	{
 		printf("convert size_t %zu\n", convert_sizet(philo->main->die_timeto) / 1000);
 		printf("get_time() - philo->last_meal_time %zu\n", get_time() - philo->last_meal_time);
 		printf("Dead\n");
-	} */
+	} 
+*/
 
 
 
-		/* pthread_mutex_lock(data->full_mutex);
-		if (data->qt_philo_full == data->philoandfork_qt)
-		{
-			printf(ORANGE"EVERYBODY IS FULL\n"RESET);
-			pthread_mutex_unlock(data->full_mutex);
-			break;
-		}
-		pthread_mutex_unlock(data->full_mutex); */
+/* 
+pthread_mutex_lock(data->full_mutex);
+if (data->qt_philo_full == data->philoandfork_qt)
+{
+	printf(ORANGE"EVERYBODY IS FULL\n"RESET);
+	pthread_mutex_unlock(data->full_mutex);
+	break;
+}
+pthread_mutex_unlock(data->full_mutex);
+*/

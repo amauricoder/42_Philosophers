@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/27 18:34:41 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:11:41 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	is_eating(t_philo *philo, size_t current_time)
 	current_time = get_time() - philo->main->start_time;
 	pthread_mutex_lock(philo->main->full_mutex);
 	philo->last_meal_time = current_time;
+	philo->main->die_timeto += philo->last_meal_time;
+	//printf(ORANGE"%i die_timeto is eating\n"RESET, philo->main->die_timeto);
 	pthread_mutex_unlock(philo->main->full_mutex);
 	printf("%zu %i is eating\n", current_time, philo->id);
 	philo->meals_qt ++;
@@ -82,7 +84,7 @@ static void	is_eating(t_philo *philo, size_t current_time)
 	{
 		philo->is_full ++;
 		philo->main->qt_philo_full ++;
-		printf(RED"Philo %i is full!\n"RESET, philo->id);
+		printf(RED"Philo %i is full! and ate %i times\n"RESET, philo->id, philo->meals_qt);
 	}
 	pthread_mutex_unlock(philo->main->full_mutex);
 	pthread_mutex_unlock(philo->left_fork->fork);
@@ -91,6 +93,7 @@ static void	is_eating(t_philo *philo, size_t current_time)
 
 static void	is_sleeping(t_philo *philo, size_t current_time)
 {
+	
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is sleeping\n", current_time, philo->id);
 	usleep(philo->main->sleep_timeto);
