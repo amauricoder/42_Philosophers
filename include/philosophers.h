@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 14:25:30 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:13:09 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,9 @@ void				get_time_test(void);
 void 				*printf_runningthr(void *arg);
 void				get_time_usleep(void);
 
+/*******************************************/
+/*  lonely dinner-> source/lonely_dinner.c */
+/*******************************************/
+//
+void    *lonely_dinner(void *arg);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 12:33:09 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:53:01 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	*check_health(void *arg);
 static size_t convert_sizet(int number);
+static int create_threads(t_data *data, int i, void *(*function)(void *));
 
 int	start_threads(t_data *data)
 {
@@ -21,18 +22,10 @@ int	start_threads(t_data *data)
 	pthread_t	doctor;
  
 	i = 0;
-	//if philo == 1
-		//TODO
-	//else
+	if (data->philoandfork_qt == 1)
+		return (create_threads(data, i, lonely_dinner));
 	while (i < data->philoandfork_qt)
-	{
-		data->ph[i].id = i + 1;
-		if (pthread_create(data->ph[i].thread, NULL,
-				&dinner_routine, &data->ph[i]) != 0)
-			return (errormsg_and_exit("Error\nError creating threads\n",
-					EXIT_FAILURE));
-		i ++;
-	}
+		create_threads(data, i ++, dinner_routine);
 	pthread_mutex_lock(data->table_mutex);
 	data->table_is_ready ++;
 	pthread_mutex_unlock(data->table_mutex);
@@ -98,6 +91,15 @@ static size_t convert_sizet(int number)
 	return (converted);
 }
 
+static int create_threads(t_data *data, int i, void *(*function)(void *))
+{
+	data->ph[i].id = i + 1;
+		if (pthread_create(data->ph[i].thread, NULL,
+				function, &data->ph[i]) != 0)
+	return (errormsg_and_exit("Error\nError creating threads\n",
+				EXIT_FAILURE));
+	return (EXIT_SUCCESS);
+}
 
 /* 
 if (get_time() - philo->main->start_time - philo->last_meal_time > 

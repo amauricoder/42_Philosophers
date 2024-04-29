@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 14:25:19 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:00:42 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*dinner_routine(void *arg)
 		{
 			pthread_mutex_unlock(philo->main->full_mutex);
 			break;
-		}	
+		}
 		pthread_mutex_unlock(philo->main->full_mutex);
 		has_taken_a_fork(philo, current_time);
 		is_eating(philo, current_time);
@@ -61,7 +61,7 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time)
 		pthread_mutex_lock(philo->right_fork->fork);
 		current_time = get_time() - philo->main->start_time;
 		printf("%zu %i has taken a fork\n", current_time,
-			philo->id);
+		philo->id);
 		pthread_mutex_lock(philo->left_fork->fork);
 		current_time = get_time() - philo->main->start_time;
 		printf("%zu %i has taken a fork\n", current_time,
@@ -93,7 +93,6 @@ static void	is_eating(t_philo *philo, size_t current_time)
 
 static void	is_sleeping(t_philo *philo, size_t current_time)
 {
-	
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is sleeping\n", current_time, philo->id);
 	ft_usleep(philo->main->sleep_timeto);
