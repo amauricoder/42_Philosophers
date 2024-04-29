@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 16:34:54 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:32:33 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->is_someone_dead = 0;
 	data->qt_philo_full = 0;
 	data->table_is_ready = 0;
+	data->stop_simulation = 0;
 	if (argc > 5)
 		data->musteat_times = ft_atoi(argv[5]);
 	data->start_time = get_time();

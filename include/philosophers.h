@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 16:34:09 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:25:30 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_data
 	int				is_someone_dead;
 	int				qt_philo_full;
 	int				table_is_ready;
+	int				stop_simulation;
 	pthread_mutex_t	*table_mutex;
 	pthread_mutex_t *full_mutex;
 	size_t			start_time;
@@ -96,6 +97,7 @@ int					ft_strlen(char *str);
 int					ft_strcmp(char *str1, char *str2);
 int					ft_atoi(char *number);
 size_t				get_time();
+void				ft_usleep(size_t time);
 
 /**************************************/
 /* INPUT_VALID -> source/input_valid.c */
