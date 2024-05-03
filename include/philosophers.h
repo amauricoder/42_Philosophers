@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 16:13:09 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:05:35 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,4 +154,5 @@ void				get_time_usleep(void);
 /*******************************************/
 //
 void    *lonely_dinner(void *arg);
+
 #endif
