@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 13:05:35 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:34:09 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@
 /**************************************/
 /*             Structs                */
 /**************************************/
-typedef	struct s_forks
+typedef struct s_forks
 {
 	int				fork_id;
-	pthread_mutex_t *fork;
+	pthread_mutex_t	*fork;
 }	t_fork;
 
-typedef	struct s_philo
+typedef struct s_philo
 {
 	int				id;
 	int				meals_qt;
@@ -77,7 +77,7 @@ typedef struct s_data
 	int				table_is_ready;
 	int				stop_simulation;
 	pthread_mutex_t	*table_mutex;
-	pthread_mutex_t *full_mutex;
+	pthread_mutex_t	*full_mutex;
 	size_t			start_time;
 	t_fork			*all_forks;
 	t_philo			*ph;
@@ -96,7 +96,7 @@ int					main(int argc, char **argv);
 int					ft_strlen(char *str);
 int					ft_strcmp(char *str1, char *str2);
 int					ft_atoi(char *number);
-size_t				get_time();
+size_t				get_time(void);
 void				ft_usleep(size_t time);
 
 /**************************************/
@@ -139,20 +139,13 @@ void				*dinner_routine(void *arg);
 /*   threads -> source/threads.c      */
 /**************************************/
 //
-int    				start_threads(t_data *data);
+int					start_threads(t_data *data);
 void				preparing_table(t_philo *philo);
-/**************************************/
-/*                DEBUG               */
-/**************************************/
-//
-void				get_time_test(void);
-void 				*printf_runningthr(void *arg);
-void				get_time_usleep(void);
 
 /*******************************************/
 /*  lonely dinner-> source/lonely_dinner.c */
 /*******************************************/
 //
-void    *lonely_dinner(void *arg);
+void				*lonely_dinner(void *arg);
 
 #endif

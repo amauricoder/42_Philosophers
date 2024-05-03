@@ -6,16 +6,15 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:48:28 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 15:48:54 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:05:45 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
 /**
- * @brief Init struct  and philo struct with initial data,
+ * @brief Init main struct and philo struct with initial data,
  * init mutexes and atributes the left/right fork ptr to the equivalent mutex.
- * @return A struct with data filled.
 */
 void	init_data(int argc, char **argv, t_data *data)
 {
@@ -38,6 +37,9 @@ void	init_data(int argc, char **argv, t_data *data)
 	init_philo(data);
 }
 
+/**
+ * @brief Init philo struct with initial data.
+*/
 void	init_philo(t_data *data)
 {
 	int	i;
@@ -59,7 +61,7 @@ void	init_philo(t_data *data)
 }
 
 /**
-* @brief Allocate memory for the treaton the main struct.
+* @brief Allocate memory for the threads in the main struct.
 * @param qt Quantity of space necessary to alloc.
 */
 pthread_t	*alloc_thread(int qt)

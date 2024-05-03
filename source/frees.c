@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:27:27 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/25 15:22:00 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:42:10 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_struct(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->philoandfork_qt)

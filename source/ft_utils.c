@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/29 14:38:28 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:43:44 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	ft_atoi(char *char_nbr)
 		res = res * signal;
 	return (res);
 }
+
 /**
  * @brief (nbr_of_secs / 60 sec / 60 min / 24 hours / 365 days)
  * Calculates the total time in milliseconds. current_time.tv_sec 
@@ -87,19 +88,19 @@ int	ft_atoi(char *char_nbr)
  * the total time in milliseconds.
  * @return The total time in milliseconds since the Unix Epoch
 */
-size_t		get_time()
+size_t	get_time(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void ft_usleep(size_t time)
+void	ft_usleep(size_t time)
 {
-	size_t start;
-	time = time / 1000;
+	size_t	start;
 
+	time = time / 1000;
 	start = get_time();
 	while (get_time() - start < time)
 		usleep(500);

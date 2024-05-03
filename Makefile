@@ -6,7 +6,7 @@
 #    By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 18:47:33 by aconceic          #+#    #+#              #
-#    Updated: 2024/05/02 18:12:21 by aconceic         ###   ########.fr        #
+#    Updated: 2024/05/03 14:27:10 by aconceic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJ_DIR = ./objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 SRC_DIR = ./source/
 SRC = ft_utils.c input_valid.c error.c frees.c \
-		debugging_sessions.c init_value.c dinner_table.c \
+		init_value.c dinner_table.c \
 		threads.c lonely_dinner.c \
 
 ##############################################

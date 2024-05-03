@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:33:27 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/23 10:06:43 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:41:48 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@
 int	errormsg_and_exit(char *msg, int exit_code)
 {
 	write(2, msg, ft_strlen(msg));
-	return(exit_code);
+	return (exit_code);
 }

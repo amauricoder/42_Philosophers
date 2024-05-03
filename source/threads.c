@@ -6,21 +6,27 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/04/30 14:19:14 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:00:32 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-static void	*check_health(void *arg);
-static size_t convert_sizet(int number);
-static int create_threads(t_data *data, int i, void *(*function)(void *));
+static void		*check_health(void *arg);
+static size_t	convert_sizet(int number);
+static int		create_threads(t_data *data, int i, void *(*function)(void *));
 
+/**
+ * @brief Start the threads for the philosophers and the doctor.
+ * If there is only one philosopher, it will start the lonely_dinner function.
+ * If there is more than one philo, it will start the dinner_routine function.
+ * Also treat syncronization of the threads.
+*/
 int	start_threads(t_data *data)
 {
-	int	i;
+	int			i;
 	pthread_t	doctor;
- 
+
 	i = 0;
 	if (data->philoandfork_qt == 1)
 	{
@@ -38,9 +44,14 @@ int	start_threads(t_data *data)
 	pthread_join(doctor, NULL);
 	return (EXIT_SUCCESS);
 }
-void				preparing_table(t_philo *philo)
+
+/**
+ * @brief Function responsable to lock the "table" 
+ * until all philosophers are ready.
+*/
+void	preparing_table(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (1)
@@ -49,17 +60,20 @@ void				preparing_table(t_philo *philo)
 		if (philo->main->table_is_ready)
 		{
 			pthread_mutex_unlock(philo->main->table_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(philo->main->table_mutex);
-		i ++;	
+		i ++;
 	}
 }
-//start "doctor thread and put it into the philosopher_health_check function"
 
+/**
+ * @brief Function to check if the philosopher is dead or 
+ * if all philosophers are full.
+*/
 static void	*check_health(void *arg)
 {
-	t_data *data;
+	t_data	*data;
 	int		i;
 
 	data = (t_data *)arg;
@@ -72,57 +86,43 @@ static void	*check_health(void *arg)
 		if (data->qt_philo_full == data->philoandfork_qt)
 		{
 			pthread_mutex_unlock(data->full_mutex);
-			break;
+			break ;
 		}
-		if ((get_time() - data->start_time) - data->ph[i].last_meal_time > 
-			(convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
+		if ((get_time() - data->start_time) - data->ph[i].last_meal_time
+			> (convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
 		{
 			data->stop_simulation ++;
-			printf(RED"%zu %i died \n"RESET, get_time() - data->start_time, data->ph[i].id);
+			printf(RED"%zu %i died \n"RESET, get_time()
+				- data->start_time, data->ph[i].id);
 			pthread_mutex_unlock(data->full_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(data->full_mutex);
 		i ++;
-	} 
- 	return (NULL);
+	}
+	return (NULL);
 }
 
-static size_t convert_sizet(int number)
+/**
+ * @brief Convert int to size_t.
+*/
+static size_t	convert_sizet(int number)
 {
-	size_t converted;
+	size_t	converted;
 
 	converted = number;
 	return (converted);
 }
 
-static int create_threads(t_data *data, int i, void *(*function)(void *))
+/**
+ * @brief Create the threads for the philosophers.
+ * @param void *(*function)(void *) Function to be executed by the thread.
+*/
+static int	create_threads(t_data *data, int i, void *(*function)(void *))
 {
 	data->ph[i].id = i + 1;
 	if (pthread_create(data->ph[i].thread, NULL, function, &data->ph[i]) != 0)
-		return (errormsg_and_exit("Error\nError creating threads\n", EXIT_FAILURE));
+		return (errormsg_and_exit("Error\n Error creating threads\n",
+				EXIT_FAILURE));
 	return (EXIT_SUCCESS);
 }
-
-/* 
-if (get_time() - philo->main->start_time - philo->last_meal_time > 
-		(convert_sizet(philo->main->die_timeto) / 1000))
-	{
-		printf("convert size_t %zu\n", convert_sizet(philo->main->die_timeto) / 1000);
-		printf("get_time() - philo->last_meal_time %zu\n", get_time() - philo->last_meal_time);
-		printf("Dead\n");
-	} 
-*/
-
-
-
-/* 
-pthread_mutex_lock(data->full_mutex);
-if (data->qt_philo_full == data->philoandfork_qt)
-{
-	printf(ORANGE"EVERYBODY IS FULL\n"RESET);
-	pthread_mutex_unlock(data->full_mutex);
-	break;
-}
-pthread_mutex_unlock(data->full_mutex);
-*/
