@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 14:41:26 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:56:27 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time)
 		return ;
 	if (philo->id % 2 == 0)
 	{
+		ft_usleep(10000);
 		pthread_mutex_lock(philo->left_fork->fork);
 		current_time = get_time() - philo->main->start_time;
 		if (stop_sim(philo))
@@ -143,6 +144,7 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is thinking\n", current_time, philo->id);
+	ft_usleep(10000);
 }
 
 /**
