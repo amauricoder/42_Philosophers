@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 15:00:32 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:48:35 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	*check_health(void *arg)
 			break ;
 		}
 		if ((get_time() - data->start_time) - data->ph[i].last_meal_time
-			> (convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
+			>= (convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
 		{
 			data->stop_simulation ++;
 			printf(RED"%zu %i died \n"RESET, get_time()

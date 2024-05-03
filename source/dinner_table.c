@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 15:56:27 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:58:07 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	*dinner_routine(void *arg)
 	current_time = 0;
 	philo = (t_philo *)arg;
 	preparing_table(philo);
+	if (philo->id % 2 == 0)
+		ft_usleep(10000);
 	while (1)
 	{
 		pthread_mutex_lock(philo->main->full_mutex);
@@ -61,7 +63,6 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time)
 		return ;
 	if (philo->id % 2 == 0)
 	{
-		ft_usleep(10000);
 		pthread_mutex_lock(philo->left_fork->fork);
 		current_time = get_time() - philo->main->start_time;
 		if (stop_sim(philo))
@@ -105,7 +106,6 @@ static void	is_eating(t_philo *philo, size_t current_time)
 	current_time = get_time() - philo->main->start_time;
 	pthread_mutex_lock(philo->main->full_mutex);
 	philo->last_meal_time = current_time;
-	philo->main->die_timeto += philo->last_meal_time;
 	pthread_mutex_unlock(philo->main->full_mutex);
 	printf("%zu %i is eating\n", current_time, philo->id);
 	philo->meals_qt ++;
@@ -144,7 +144,7 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is thinking\n", current_time, philo->id);
-	ft_usleep(10000);
+	ft_usleep(1000);
 }
 
 /**
