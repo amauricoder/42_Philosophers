@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 18:58:07 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:12:45 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time);
 static void	is_eating(t_philo *philo, size_t current_time);
 static void	is_sleeping(t_philo *philo, size_t current_time);
 static void	is_thinking(t_philo *philo, size_t current_time);
-static int	stop_sim(t_philo *philo);
 
 /**
  * @brief Simulation of the dinner of the philosophers.
@@ -62,35 +61,9 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time)
 	if (stop_sim(philo))
 		return ;
 	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->left_fork->fork);
-		current_time = get_time() - philo->main->start_time;
-		if (stop_sim(philo))
-			return ;
-		printf("%zu %i has taken a fork\n", current_time,
-			philo->id);
-		pthread_mutex_lock(philo->right_fork->fork);
-		current_time = get_time() - philo->main->start_time;
-		if (stop_sim(philo))
-			return ;
-		printf("%zu %i has taken a fork\n", current_time,
-			philo->id);
-	}
+		even_philo_take_fork(philo, current_time);
 	else
-	{
-		pthread_mutex_lock(philo->right_fork->fork);
-		current_time = get_time() - philo->main->start_time;
-		if (stop_sim(philo))
-			return ;
-		printf("%zu %i has taken a fork\n", current_time,
-			philo->id);
-		pthread_mutex_lock(philo->left_fork->fork);
-		current_time = get_time() - philo->main->start_time;
-		if (stop_sim(philo))
-			return ;
-		printf("%zu %i has taken a fork\n", current_time,
-			philo->id);
-	}
+		odd_philo_take_fork(philo, current_time);
 }
 
 /**
@@ -147,18 +120,3 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 	ft_usleep(1000);
 }
 
-/**
- * @brief Checks if the simulation is stopped.
- * @return 1 if the simulation is stopped, 0 if not.
-*/
-static int	stop_sim(t_philo *philo)
-{
-	pthread_mutex_lock(philo->main->full_mutex);
-	if (philo->main->stop_simulation)
-	{
-		pthread_mutex_unlock(philo->main->full_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(philo->main->full_mutex);
-	return (0);
-}

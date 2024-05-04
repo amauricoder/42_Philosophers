@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:02:41 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 16:40:54 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:11:49 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	stop_sim(t_philo *philo)
 
 int	even_philo_take_fork(t_philo *philo, size_t current_time)
 {
-	ft_usleep(10000);
 	pthread_mutex_lock(philo->left_fork->fork);
 	current_time = get_time() - philo->main->start_time;
 	if (stop_sim(philo))
@@ -55,6 +54,23 @@ int	even_philo_take_fork(t_philo *philo, size_t current_time)
 	printf("%zu %i has taken a fork\n", current_time,
 		philo->id);
 	pthread_mutex_lock(philo->right_fork->fork);
+	current_time = get_time() - philo->main->start_time;
+	if (stop_sim(philo))
+		return (EXIT_FAILURE);
+	printf("%zu %i has taken a fork\n", current_time,
+		philo->id);
+	return (EXIT_SUCCESS);
+}
+
+int odd_philo_take_fork(t_philo *philo, size_t current_time)
+{
+	pthread_mutex_lock(philo->right_fork->fork);
+	current_time = get_time() - philo->main->start_time;
+	if (stop_sim(philo))
+		return (EXIT_FAILURE);
+	printf("%zu %i has taken a fork\n", current_time,
+		philo->id);
+	pthread_mutex_lock(philo->left_fork->fork);
 	current_time = get_time() - philo->main->start_time;
 	if (stop_sim(philo))
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 14:34:09 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:01:55 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,11 @@ int					start_threads(t_data *data);
 void				preparing_table(t_philo *philo);
 
 /*******************************************/
-/*  lonely dinner-> source/lonely_dinner.c */
+/*  dinner utils-> source/dinner_utils.c */
 /*******************************************/
 //
 void				*lonely_dinner(void *arg);
-
+int					stop_sim(t_philo *philo);
+int					even_philo_take_fork(t_philo *philo, size_t current_time);
+int					odd_philo_take_fork(t_philo *philo, size_t current_time);
 #endif
