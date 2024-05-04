@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:02:41 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 14:11:49 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:36:29 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int	stop_sim(t_philo *philo)
 	return (0);
 }
 
+/**
+ * @brief Take the forks(mutex), print the message, update the current_time.
+ * Constantly checks for the health of the philosophers.
+ * @attention This function must be used within an IF the philo is even.
+ * Because, even philos take the left fork first.
+*/
 int	even_philo_take_fork(t_philo *philo, size_t current_time)
 {
 	pthread_mutex_lock(philo->left_fork->fork);
@@ -62,7 +68,14 @@ int	even_philo_take_fork(t_philo *philo, size_t current_time)
 	return (EXIT_SUCCESS);
 }
 
-int odd_philo_take_fork(t_philo *philo, size_t current_time)
+/**
+ * @brief Take the forks(mutex), print the message, update the current_time.
+ * Constantly checks for the health of the philosophers.
+ * @attention This function must be used within an IF the philo is odd.
+ * Because, odd philos take the left fork first.
+*/
+
+int	odd_philo_take_fork(t_philo *philo, size_t current_time)
 {
 	pthread_mutex_lock(philo->right_fork->fork);
 	current_time = get_time() - philo->main->start_time;

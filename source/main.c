@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:47 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 14:02:48 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:42:54 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ int	main(int argc, char **argv)
 		return (errormsg_and_exit("Error\nInvalid Arguments", EXIT_FAILURE));
 	init_data(argc, argv, &d);
 	if (attribute_forks(&d) != 0)
+	{
+		free_struct(&d);
 		return (errormsg_and_exit("Error\nInvalid Mutex", EXIT_FAILURE));
+	}
 	if (start_threads(&d) != 0)
+	{
+		free_struct(&d);
 		return (errormsg_and_exit("Error\nInvalid Thread", EXIT_FAILURE));
+	}
 	free_struct(&d);
 }

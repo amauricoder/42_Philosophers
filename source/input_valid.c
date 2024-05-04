@@ -6,11 +6,14 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 10:57:13 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 14:46:09 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:22:54 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
+
+static long	ft_atol(char *char_nbr);
+
 /**
  * @brief Checks if the arguments from the 
  * input are valid using other functions
@@ -18,11 +21,8 @@
 */
 int	argument_isvalid(int argc, char **argv)
 {
-	//here I need to check for int max too.
-	//timestamp needs to be bigger than 60ms
-	//work on 0 values like 0 time to die
 	if (!is_digit(argv) || !is_null(argv) || argc < 5 || argc > 6
-		|| ft_atoi(argv[5]) == 0)
+		|| ft_atoi(argv[5]) == 0 || is_intvalid(argv))
 		return (EXIT_FAILURE);
 	else
 		return (EXIT_SUCCESS);
@@ -70,4 +70,50 @@ int	is_null(char **argv)
 		i ++;
 	}
 	return (1);
+}
+
+/**
+ * @brief Checks if the int is valid into the scope of INT_MAX
+*/
+int	is_intvalid(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (ft_atol(argv[i]) > 2147483647)
+			return (EXIT_FAILURE);
+		i ++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+static long	ft_atol(char *char_nbr)
+{
+	long	res;
+	long	signal;
+	long	i;
+
+	signal = 0;
+	res = 0;
+	i = 0;
+	if (!char_nbr)
+		return (EXIT_FAILURE);
+	while (char_nbr[i] == 32 || (char_nbr[i] >= 9 && char_nbr[i] <= 13))
+		i ++;
+	if (char_nbr[i] == '+' || char_nbr[i] == '-')
+	{
+		if (char_nbr[i] == '-')
+			signal = -1;
+		i ++;
+	}
+	while (char_nbr[i] >= '0' && char_nbr[i] <= '9')
+	{
+		res = res * 10;
+		res = res + char_nbr[i ++] - 48;
+	}
+	if (signal == -1)
+		res = res * signal;
+	return (res);
 }

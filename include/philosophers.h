@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 14:01:55 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:03:44 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@
 # include <string.h> //memset
 # include <sys/time.h> // gettimeofday
 # include <sys/wait.h> // wait, waitpid, waitid
-# include <fcntl.h> //sem_open
-# include <sys/stat.h> //sem_open
-# include <semaphore.h> //sem_open
 # include <pthread.h> // thread_create
+# include <limits.h> //int_max int_min
 
 /**************************************/
 /*             Structs                */
@@ -100,13 +98,19 @@ size_t				get_time(void);
 void				ft_usleep(size_t time);
 
 /**************************************/
+/*   FT_UTILS2 -> source/ft_utils2.c    */
+/**************************************/
+//
+size_t				convert_sizet(int number);
+
+/**************************************/
 /* INPUT_VALID -> source/input_valid.c */
 /**************************************/
 //
 int					argument_isvalid(int argc, char **argv);
 int					is_digit(char **argv);
 int					is_null(char **argv);
-
+int					is_intvalid(char **argv);
 /**************************************/
 /*     error -> source/error.c        */
 /**************************************/
@@ -118,6 +122,7 @@ int					errormsg_and_exit(char *msg, int exit_code);
 /**************************************/
 //
 void				free_struct(t_data *data);
+void				destroy_mutex(t_data *data);
 
 /**************************************/
 /*INIT VALUES -> source/init_values.c */

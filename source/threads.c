@@ -6,15 +6,15 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/03 18:48:35 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:31:54 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
 static void		*check_health(void *arg);
-static size_t	convert_sizet(int number);
 static int		create_threads(t_data *data, int i, void *(*function)(void *));
+static int		is_someone_dead(t_data *data, int i);
 
 /**
  * @brief Start the threads for the philosophers and the doctor.
@@ -88,30 +88,12 @@ static void	*check_health(void *arg)
 			pthread_mutex_unlock(data->full_mutex);
 			break ;
 		}
-		if ((get_time() - data->start_time) - data->ph[i].last_meal_time
-			>= (convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
-		{
-			data->stop_simulation ++;
-			printf(RED"%zu %i died \n"RESET, get_time()
-				- data->start_time, data->ph[i].id);
-			pthread_mutex_unlock(data->full_mutex);
+		if (is_someone_dead(data, i))
 			break ;
-		}
 		pthread_mutex_unlock(data->full_mutex);
 		i ++;
 	}
 	return (NULL);
-}
-
-/**
- * @brief Convert int to size_t.
-*/
-static size_t	convert_sizet(int number)
-{
-	size_t	converted;
-
-	converted = number;
-	return (converted);
 }
 
 /**
@@ -124,5 +106,24 @@ static int	create_threads(t_data *data, int i, void *(*function)(void *))
 	if (pthread_create(data->ph[i].thread, NULL, function, &data->ph[i]) != 0)
 		return (errormsg_and_exit("Error\n Error creating threads\n",
 				EXIT_FAILURE));
+	return (EXIT_SUCCESS);
+}
+
+/**
+ * @brief hecks if a philo has exceeded the time limit since their last meal
+ * and if they are not full. If both conditions are met, someone is dead.
+ * @return Boolean. SUCCESS (0) for no deads and FAILURE(1) for deads.
+*/
+static int	is_someone_dead(t_data *data, int i)
+{
+	if ((get_time() - data->start_time) - data->ph[i].last_meal_time
+		>= (convert_sizet(data->die_timeto) / 1000) && !data->ph[i].is_full)
+	{
+		data->stop_simulation ++;
+		printf(RED"%zu %i died \n"RESET, get_time()
+			- data->start_time, data->ph[i].id);
+		pthread_mutex_unlock(data->full_mutex);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

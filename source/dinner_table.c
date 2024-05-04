@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 14:12:45 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:37:38 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	has_taken_a_fork(t_philo *philo, size_t current_time)
  * @brief Simulates the philosopher eating.
  * Compares if the qt of meals of the philosopher is equal to the quantity of 
  * meals that they need to take. If yes, the philosopher is full.
- * Also checks if the simulation is stopped to prevent the simulation to continue.
+ * Also checks if the simu is stopped to prevent the simulation to continue.
 */
 static void	is_eating(t_philo *philo, size_t current_time)
 {
@@ -119,4 +119,3 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 	printf("%zu %i is thinking\n", current_time, philo->id);
 	ft_usleep(1000);
 }
-
