@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/07 11:13:59 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:38:05 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,14 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is thinking\n", current_time, philo->id);
-	ft_usleep(1000, philo);
+	if (philo->main->philoandfork_qt % 2 == 0)
+	{
+		ft_usleep(1000, philo);
+	}
+	else
+	{
+		//time_to_think = (time_to_eat * 2) - time_to_sleep)
+		ft_usleep((philo->main->eat_timeto * 2)
+			- philo->main->sleep_timeto, philo);
+	}
 }
