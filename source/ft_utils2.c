@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:28:09 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/07 11:08:02 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:58:23 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	is_simulation_stoped(t_philo *philo)
 	pthread_mutex_lock(philo->main->full_mutex);
 	if (philo->main->stop_simulation)
 	{
-		pthread_mutex_unlock(philo->main->full_mutex);	
-		return (EXIT_FAILURE);		
+		pthread_mutex_unlock(philo->main->full_mutex);
+		return (EXIT_FAILURE);
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->main->full_mutex);	
+		pthread_mutex_unlock(philo->main->full_mutex);
 		return (EXIT_SUCCESS);
 	}
 }

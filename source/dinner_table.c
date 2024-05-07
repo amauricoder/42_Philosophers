@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/07 11:38:05 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:53:16 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	has_taken_a_fork(t_philo *philo, size_t current_time);
 static void	is_eating(t_philo *philo, size_t current_time);
 static void	is_sleeping(t_philo *philo, size_t current_time);
-static void	is_thinking(t_philo *philo, size_t current_time);
+static void	is_thinking(t_philo *philo, size_t current_time, int f);
 
 /**
  * @brief Simulation of the dinner of the philosophers.
@@ -29,8 +29,8 @@ void	*dinner_routine(void *arg)
 	current_time = 0;
 	philo = (t_philo *)arg;
 	preparing_table(philo);
-	if (philo->id % 2 == 0)
-		ft_usleep(10000, philo);
+	if (philo->id % 2 == 0 || philo->id == 1)
+		is_thinking(philo, 10000, 1);
 	while (1)
 	{
 		pthread_mutex_lock(philo->main->full_mutex);
@@ -44,7 +44,7 @@ void	*dinner_routine(void *arg)
 		has_taken_a_fork(philo, current_time);
 		is_eating(philo, current_time);
 		is_sleeping(philo, current_time);
-		is_thinking(philo, current_time);
+		is_thinking(philo, current_time, 0);
 	}
 	return (NULL);
 }
@@ -109,21 +109,23 @@ static void	is_sleeping(t_philo *philo, size_t current_time)
 
 /**
  * @brief Simulates the philosopher thinking.
+ * Gives time to think if qt of philo is odd. To prevent they from dying with 
+ * lower sleep times.
  * Checks if the simulation is stopped to prevent the simulation to continue.
+ * @attention If odd - time_to_think = (time_to_eat * 2) - time_to_sleep)
 */
-static void	is_thinking(t_philo *philo, size_t current_time)
+static void	is_thinking(t_philo *philo, size_t current_time, int f)
 {
 	if (stop_sim(philo))
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is thinking\n", current_time, philo->id);
-	if (philo->main->philoandfork_qt % 2 == 0)
+	if (philo->main->philoandfork_qt % 2 == 0 || f == 1)
 	{
 		ft_usleep(1000, philo);
 	}
 	else
 	{
-		//time_to_think = (time_to_eat * 2) - time_to_sleep)
 		ft_usleep((philo->main->eat_timeto * 2)
 			- philo->main->sleep_timeto, philo);
 	}
