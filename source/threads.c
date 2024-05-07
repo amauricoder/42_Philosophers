@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:59:44 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 15:31:54 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:01:00 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	start_threads(t_data *data)
 	data->table_is_ready ++;
 	pthread_mutex_unlock(data->table_mutex);
 	pthread_create(&doctor, NULL, &check_health, data);
-	pthread_join(doctor, NULL);
+	pthread_detach(doctor);
 	return (EXIT_SUCCESS);
 }
 
@@ -51,9 +51,6 @@ int	start_threads(t_data *data)
 */
 void	preparing_table(t_philo *philo)
 {
-	int	i;
-
-	i = 0;
 	while (1)
 	{
 		pthread_mutex_lock(philo->main->table_mutex);
@@ -63,7 +60,6 @@ void	preparing_table(t_philo *philo)
 			break ;
 		}
 		pthread_mutex_unlock(philo->main->table_mutex);
-		i ++;
 	}
 }
 

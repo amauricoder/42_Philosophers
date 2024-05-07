@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:34:17 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 16:17:14 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:12:36 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ size_t	get_time(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	ft_usleep(size_t time)
+void	ft_usleep(size_t time, t_philo *philo)
 {
 	size_t	start;
 
 	time = time / 1000;
 	start = get_time();
-	while (get_time() - start < time)
+	while (get_time() - start < time && !is_simulation_stoped(philo))
 		usleep(500);
 }

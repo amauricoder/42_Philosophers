@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 15:37:38 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:13:59 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*dinner_routine(void *arg)
 	philo = (t_philo *)arg;
 	preparing_table(philo);
 	if (philo->id % 2 == 0)
-		ft_usleep(10000);
+		ft_usleep(10000, philo);
 	while (1)
 	{
 		pthread_mutex_lock(philo->main->full_mutex);
@@ -82,7 +82,7 @@ static void	is_eating(t_philo *philo, size_t current_time)
 	pthread_mutex_unlock(philo->main->full_mutex);
 	printf("%zu %i is eating\n", current_time, philo->id);
 	philo->meals_qt ++;
-	ft_usleep(philo->main->eat_timeto);
+	ft_usleep(philo->main->eat_timeto, philo);
 	pthread_mutex_lock(philo->main->full_mutex);
 	if (philo->meals_qt == philo->main->musteat_times)
 	{
@@ -104,7 +104,7 @@ static void	is_sleeping(t_philo *philo, size_t current_time)
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is sleeping\n", current_time, philo->id);
-	ft_usleep(philo->main->sleep_timeto);
+	ft_usleep(philo->main->sleep_timeto, philo);
 }
 
 /**
@@ -117,5 +117,5 @@ static void	is_thinking(t_philo *philo, size_t current_time)
 		return ;
 	current_time = get_time() - philo->main->start_time;
 	printf("%zu %i is thinking\n", current_time, philo->id);
-	ft_usleep(1000);
+	ft_usleep(1000, philo);
 }

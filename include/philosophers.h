@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 18:30:49 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/04 16:03:44 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:13:05 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,14 @@ int					ft_strlen(char *str);
 int					ft_strcmp(char *str1, char *str2);
 int					ft_atoi(char *number);
 size_t				get_time(void);
-void				ft_usleep(size_t time);
+void				ft_usleep(size_t time, t_philo *philo);
 
 /**************************************/
 /*   FT_UTILS2 -> source/ft_utils2.c    */
 /**************************************/
 //
 size_t				convert_sizet(int number);
+int					is_simulation_stoped(t_philo *philo);
 
 /**************************************/
 /* INPUT_VALID -> source/input_valid.c */
