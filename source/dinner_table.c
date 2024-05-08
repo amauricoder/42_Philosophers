@@ -6,7 +6,7 @@
 /*   By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:13:31 by aconceic          #+#    #+#             */
-/*   Updated: 2024/05/07 14:53:16 by aconceic         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:44:49 by aconceic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ static void	is_thinking(t_philo *philo, size_t current_time, int f)
 	}
 	else
 	{
-		ft_usleep((philo->main->eat_timeto * 2)
-			- philo->main->sleep_timeto, philo);
+		if (philo->main->eat_timeto >= philo->main->sleep_timeto)
+		{
+			ft_usleep((philo->main->eat_timeto * 2)
+				- philo->main->sleep_timeto, philo);
+		}
 	}
 }
