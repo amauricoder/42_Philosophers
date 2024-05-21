@@ -6,15 +6,15 @@
 #    By: aconceic <aconceic@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/10 18:47:33 by aconceic          #+#    #+#              #
-#    Updated: 2024/04/10 19:08:09 by aconceic         ###   ########.fr        #
+#    Updated: 2024/05/08 15:55:28 by aconceic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ##############################################
 #                 COMPILATION                #
 ##############################################
-CFLACGS = -Wall -Wextra -Werror
-GCC = cc -g
+CFLACGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread #-fsanitize=address
+GCC = gcc
 CC = cc
 
 ##############################################
@@ -29,10 +29,12 @@ NAME = philo
 OBJ_DIR = ./objs/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 SRC_DIR = ./source/
-SRC = ft_utils.c \
+SRC = ft_utils.c input_valid.c error.c frees.c \
+		init_value.c dinner_table.c \
+		threads.c dinner_utils.c ft_utils2.c \
 
 ##############################################
-#                    RULES                      #
+#                    RULES                   #
 ##############################################
 all : $(NAME)
 
@@ -42,10 +44,10 @@ $(OBJ_DIR) :
 	mkdir $@
 
 $(NAME) : $(OBJ)
-	$(GCC) $(CFLACGS) $(OBJ) $(SRC_DIR)main.c -o $(NAME)
+	$(CC) $(CFLACGS) $(OBJ) $(SRC_DIR)main.c -o $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(GCC) $(CFLACGS) -c $< -o $@
+	$(CC) $(CFLACGS) -c $< -o $@
 
 clean :
 	$(RM) $(OBJ_DIR)
